@@ -79,3 +79,22 @@ exports.searchUser=async(req,res)=>{
         throw createError(500,error)
     }
 }
+
+exports.followUser=async(req,res)=>{
+    try{
+      const{id}=req.params
+      let user = await User.findById(id)
+      if(!user)
+      throw createError(400,"User doesn't exist")
+    user.followers.push(req.user._id)
+    user.save()
+    await User.findByIdAndUpdate(req.user._id,{
+        $push:{
+            following:id
+        }
+    })
+    res.status(201).send("Followed successfully!")
+    }catch(error){
+        throw createError(500,error)
+    }
+}
