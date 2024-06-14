@@ -6,10 +6,11 @@ const DiscussionSchema = new Schema({
     image: { type: String },
     hashTags: [{ type: String }],
     createdBy: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    createdOn: { type: Date, default: Date.now },
     likes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
     viewCount: { type: Number, default: 0 },
+},{
+    timestamps:true
 });
 
 module.exports = mongoose.model('Discussion', DiscussionSchema);

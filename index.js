@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const userRoutes = require('./routes/userRoutes');
 const discussionRoutes = require('./routes/discussionRoutes');
-const commentRoutes = require('./routes/commentRoutes');
+const commentRoutes = require('./routes/commentsRoutes');
+const replyRoutes = require('./routes/replyRoutes')
 const errorHandler = require('./middleware/errorHandler');
 const app = express();
 
@@ -26,8 +27,9 @@ mongoose.connect(process.env.DATABASE_URL, {
 app.use('/api/users', userRoutes);
 app.use('/api/discussions', discussionRoutes);
 app.use('/api/comments', commentRoutes);
+app.use('/api/reply', replyRoutes);
 app.use(errorHandler);
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
